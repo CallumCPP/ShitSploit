@@ -1,6 +1,5 @@
 ﻿
 using System.Drawing;
-using ScintillaNET;
 
 namespace Shitsploit
 {
@@ -34,7 +33,6 @@ namespace Shitsploit
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.scintilla1 = new ScintillaNET.Scintilla();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button8 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
@@ -55,20 +53,14 @@ namespace Shitsploit
             this.BGWorker = new System.ComponentModel.BackgroundWorker();
             this.button7 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.LineNumberTextBox = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // scintilla1
-            // 
-            this.scintilla1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.scintilla1.CaretForeColor = System.Drawing.Color.White;
-            this.scintilla1.Location = new System.Drawing.Point(3, 43);
-            this.scintilla1.Name = "scintilla1";
-            this.scintilla1.Size = new System.Drawing.Size(619, 276);
-            this.scintilla1.TabIndex = 1;
-            this.scintilla1.TextChanged += new System.EventHandler(this.scintilla1_TextChanged);
             // 
             // panel1
             // 
@@ -301,12 +293,53 @@ namespace Shitsploit
             this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(758, 38);
+            this.button5.Location = new System.Drawing.Point(768, 38);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(38, 21);
+            this.button5.Size = new System.Drawing.Size(21, 21);
             this.button5.TabIndex = 6;
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.richTextBox1);
+            this.panel3.Controls.Add(this.LineNumberTextBox);
+            this.panel3.Location = new System.Drawing.Point(0, 43);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(622, 275);
+            this.panel3.TabIndex = 8;
+            this.panel3.Resize += new System.EventHandler(this.panel3_Resize);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(43, 0);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(579, 275);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
+            this.richTextBox1.VScroll += new System.EventHandler(this.richTextBox1_VScroll);
+            this.richTextBox1.FontChanged += new System.EventHandler(this.richTextBox1_FontChanged);
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
+            // LineNumberTextBox
+            // 
+            this.LineNumberTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.LineNumberTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.LineNumberTextBox.Cursor = System.Windows.Forms.Cursors.PanNE;
+            this.LineNumberTextBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LineNumberTextBox.ForeColor = System.Drawing.Color.White;
+            this.LineNumberTextBox.Location = new System.Drawing.Point(0, 0);
+            this.LineNumberTextBox.Name = "LineNumberTextBox";
+            this.LineNumberTextBox.ReadOnly = true;
+            this.LineNumberTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.LineNumberTextBox.Size = new System.Drawing.Size(43, 275);
+            this.LineNumberTextBox.TabIndex = 0;
+            this.LineNumberTextBox.Text = "";
+            this.LineNumberTextBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LineNumberTextBox_MouseDown);
             // 
             // Form1
             // 
@@ -314,13 +347,13 @@ namespace Shitsploit
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.ClientSize = new System.Drawing.Size(800, 365);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.scintilla1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
@@ -330,13 +363,13 @@ namespace Shitsploit
             this.contextMenuStrip1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private ScintillaNET.Scintilla scintilla1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox listBox1;
@@ -357,6 +390,9 @@ namespace Shitsploit
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox LineNumberTextBox;
     }
 }
 

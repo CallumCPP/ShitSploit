@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using WeAreDevs_API;
-using ScintillaNET;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
@@ -39,6 +38,45 @@ namespace Shitsploit
             _start_point = new Point(e.X, e.Y);
         }
 
+        public void AddLineNumbers()
+        {
+            Point pt = new Point(0, 0); 
+            int First_Index = richTextBox1.GetCharIndexFromPosition(pt);
+            int First_Line = richTextBox1.GetLineFromCharIndex(First_Index); 
+            pt.X = ClientRectangle.Width;
+            pt.Y = ClientRectangle.Height;
+            int Last_Index = richTextBox1.GetCharIndexFromPosition(pt);
+            int Last_Line = richTextBox1.GetLineFromCharIndex(Last_Index);
+            LineNumberTextBox.SelectionAlignment = HorizontalAlignment.Center;
+            LineNumberTextBox.Text = "";
+            LineNumberTextBox.Width = getWidth(); 
+            for (int i = First_Line; i <= Last_Line + 2; i++)
+            {
+                LineNumberTextBox.Text += i + 1 + "\n";
+            }
+        }
+
+        public int getWidth()
+        {
+            int w = 25;
+            int line = richTextBox1.Lines.Length;
+
+            if (line <= 99)
+            {
+                w = 20 + (int)richTextBox1.Font.Size;
+            }
+            else if (line <= 999)
+            {
+                w = 30 + (int)richTextBox1.Font.Size;
+            }
+            else
+            {
+                w = 50 + (int)richTextBox1.Font.Size;
+            }
+
+            return w;
+        }
+
         void refresh()
         {
             listBox1.Items.Clear();
@@ -62,29 +100,16 @@ namespace Shitsploit
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            scintilla1.Styles[0].BackColor = Color.FromArgb(48, 48, 48);
-            scintilla1.Styles[0].ForeColor = Color.White;
-            scintilla1.Styles[Style.Default].BackColor = Color.FromArgb(48, 48, 48);
-
             if (!Directory.Exists(Directory.GetCurrentDirectory() + "/Scripts"))
             {
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/Scripts");
             }
 
             refresh();
+            LineNumberTextBox.Font = richTextBox1.Font;
+            richTextBox1.Select();
+            AddLineNumbers();
             BGWorker.RunWorkerAsync();
-        }
-
-        private int maxLineNumberCharLength;
-        private void scintilla1_TextChanged(object sender, EventArgs e)
-        {
-            var maxLineNumberCharLength = scintilla1.Lines.Count.ToString().Length;
-            if (maxLineNumberCharLength == this.maxLineNumberCharLength)
-                return;
-
-            const int padding = 2;
-            scintilla1.Margins[0].Width = scintilla1.TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
-            this.maxLineNumberCharLength = maxLineNumberCharLength;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -164,14 +189,14 @@ namespace Shitsploit
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            scintilla1.Text = File.ReadAllText(Directory.GetCurrentDirectory() + "/Scripts/" + listBox1.SelectedItem);
+            richTextBox1.Text = File.ReadAllText(Directory.GetCurrentDirectory() + "/Scripts/" + listBox1.SelectedItem);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show(this, "Are you sure you want to clear?", "Are you sure?", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                scintilla1.Text = "";
+                richTextBox1.Text = "";
             }
         }
 
@@ -179,7 +204,7 @@ namespace Shitsploit
         {
             if (Exploit.isAPIAttached())
             {
-                Exploit.SendLuaScript(scintilla1.Text);
+                Exploit.SendLuaScript(richTextBox1.Text);
             }
             else
             {
@@ -196,7 +221,7 @@ namespace Shitsploit
 
             if (saveFile.ShowDialog() == DialogResult.OK && saveFile.FileName != string.Empty)
             {
-                File.WriteAllText(saveFile.FileName, scintilla1.Text);
+                File.WriteAllText(saveFile.FileName, richTextBox1.Text);
             }
         }
 
@@ -208,7 +233,7 @@ namespace Shitsploit
 
             if (openFile.ShowDialog() == DialogResult.OK && openFile.FileName != string.Empty)
             {
-                scintilla1.Text = File.ReadAllText(openFile.FileName);
+                richTextBox1.Text = File.ReadAllText(openFile.FileName);
             }
         }
 
@@ -221,6 +246,48 @@ namespace Shitsploit
         private void BGWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             BGWorker.RunWorkerAsync();
+        }
+
+        private void richTextBox1_SelectionChanged(object sender, EventArgs e)
+        {
+            Point pt = richTextBox1.GetPositionFromCharIndex(richTextBox1.SelectionStart);
+            if (pt.X == 1)
+            {
+                AddLineNumbers();
+            }
+        }
+
+        private void richTextBox1_VScroll(object sender, EventArgs e)
+        {
+            LineNumberTextBox.Text = "";
+            AddLineNumbers();
+            LineNumberTextBox.Invalidate();
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (richTextBox1.Text == "")
+            {
+                AddLineNumbers();
+            }
+        }
+
+        private void richTextBox1_FontChanged(object sender, EventArgs e)
+        {
+            LineNumberTextBox.Font = richTextBox1.Font;
+            richTextBox1.Select();
+            AddLineNumbers();
+        }
+
+        private void LineNumberTextBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            richTextBox1.Select();
+            LineNumberTextBox.DeselectAll();
+        }
+
+        private void panel3_Resize(object sender, EventArgs e)
+        {
+            AddLineNumbers();
         }
     }
 }

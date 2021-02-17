@@ -1,7 +1,6 @@
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\bin\Release\Shitsploit.exe.config
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\bin\Release\Shitsploit.exe
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\bin\Release\Shitsploit.pdb
-C:\Users\thecr\source\repos\Shitsploit\Shitsploit\bin\Release\ScintillaNET.xml
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\obj\Release\Shitsploit.ESPControls.resources
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\obj\Release\Shitsploit.Extras.resources
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\obj\Release\Shitsploit.Form1.resources
@@ -13,8 +12,5 @@ C:\Users\thecr\source\repos\Shitsploit\Shitsploit\obj\Release\Shitsploit.csproj.
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\obj\Release\Shitsploit.csproj.CopyComplete
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\obj\Release\Shitsploit.exe
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\obj\Release\Shitsploit.pdb
-C:\Users\thecr\source\repos\Shitsploit\Shitsploit\bin\Release\System.Diagnostics.DiagnosticSource.xml
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\obj\Release\Shitsploit.csprojAssemblyReference.cache
-C:\Users\thecr\source\repos\Shitsploit\Shitsploit\bin\Release\ScintillaNET.dll
-C:\Users\thecr\source\repos\Shitsploit\Shitsploit\bin\Release\System.Diagnostics.DiagnosticSource.dll
 C:\Users\thecr\source\repos\Shitsploit\Shitsploit\bin\Release\WeAreDevs_API.dll
